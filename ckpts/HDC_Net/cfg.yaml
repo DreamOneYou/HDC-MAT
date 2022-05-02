@@ -1,0 +1,39 @@
+batch_size: 10
+cfg: or_HDC_Net
+ckpt_dir: ./ckpts
+criterion: GeneralizedDiceLoss
+dataset: BraTSDataset
+eps: 1.0e-05
+gpu: 0,1
+is_out: true
+name: or_HDC_Net
+net: or_HDC_Net
+net_params:
+  in_dim: 4
+  num_filters: 32
+  out_dim: 4
+num_epochs: 800
+opt: Adam
+opt_params:
+  amsgrad: true
+  lr: 0.001
+  weight_decay: 1.0e-05
+restore: model_epoch_700.pth
+save_freq: 10
+seed: 1024
+start_iter: 0
+test_data_dir: /home/icml/wpx/brain//2020_train_pkl
+test_list: text.txt
+test_transforms: Compose([ Pad((0, 0, 0, 5, 0)), NumpyType((np.float32, np.int64)),
+  ])
+train_data_dir: /home/icml/wpx/brain/2018_train_pkl
+train_list: train.txt
+train_transforms: Compose([ RandCrop3D((128,128,128)), RandomRotion(10), RandomIntensityChange((0.1,0.1)),
+  RandomFlip(0), NumpyType((np.float32, np.int64)), ])
+use_TTA: true
+val_seg_csv_path: ./ckpts/history_valid.csv
+valid_data_dir: /home/icml/wpx/brain/2018_valid_pkl
+valid_freq: 10
+valid_list: valid.txt
+weight_type: square
+workers: 10
